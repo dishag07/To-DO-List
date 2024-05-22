@@ -84,7 +84,7 @@ function completeToDO(element) {
     element.classList.toggle(UNCHECK);
     element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
 
-    List[element.id].done = LIST[element.id].done ? false : true;
+    LIST[element.id].done = LIST[element.id].done ? false : true;
 }
 
 function removeToDo(element){

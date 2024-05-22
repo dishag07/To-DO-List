@@ -8,6 +8,24 @@ const UNCHECK = "fa-circle-thin";
 const LINE_THROUGH = "lineThrough";
 
 let LIST, id;
+let data = localStorage.getItem("TODO");
+
+
+id(date){
+    List = JSON.parse(data);
+    id = LIST.length;
+    loadList(LIST);
+}else{
+    LIST = [];
+    id = 0;
+}
+
+function loadList(array){
+    array.forEach(function(item){
+        addToDo(item.name, item.id, item.done, item.trash);
+    }
+    );
+}
 
 const options = {weekday : "long", month:"short", day:"numeric"}
 const today = new Date();
@@ -46,9 +64,38 @@ document.addEventListener("keyup", function(even){
                 done : false,
                 trash : false
             });
+            localStorage.setItem("TODO", JSON.stringify(LIST));
+
                 id++;
         }
     input.value = "";
     }
 
 });
+
+
+function completeToDO(element) {
+    element.classList.toggle(CHECK);
+    element.classList.toggle(UNCHECK);
+    element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
+
+    List[element.id].done = LIST[element.id].done ? false : true;
+}
+
+function removeToDo(element){
+    element.parentNode.parentNode.removeChild(element.parentNode);
+    LIST[element.id].trash = true;
+}
+
+list.addEventListener("click",function(event){
+    const element = event.target;
+    const elementJob = element.attributes.job.value;
+
+    if(elementJob == "complete") {
+        completeToDO(element);
+    }else if(elementJob == "delete"){
+        removeToDo(element);
+    }
+    localStorage.setItem("TODO", JSON.stringify(LIST));
+
+    });

@@ -12,10 +12,10 @@ let data = localStorage.getItem("TODO");
 
 
 id(date){
-    List = JSON.parse(data);
+    LIST = JSON.parse(data);
     id = LIST.length;
     loadList(LIST);
-}else{
+} else {
     LIST = [];
     id = 0;
 }
@@ -26,6 +26,11 @@ function loadList(array){
     }
     );
 }
+
+clear.addEventListener("click", function(){
+    localStorage.clear();
+    location.reload();
+})
 
 const options = {weekday : "long", month:"short", day:"numeric"}
 const today = new Date();
